@@ -59,8 +59,8 @@ spring:
         '[/**]':
           # 授信地址列表
           allowed-origins:
-            - "http://localhost:10000"
-            - "https://www.geekbang.com"
+            - "http://localhost:20080"
+            - "https://www.brucecoupon.com"
           # cookie, authorization认证信息
           expose-headers: "*"
           allowed-methods: "*"
