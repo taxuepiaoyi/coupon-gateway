@@ -3,6 +3,7 @@ package com.bruce.coupon.gateway.dynamic;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.config.listener.Listener;
+import com.alibaba.nacos.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -28,8 +29,9 @@ public class DynamicRoutesListener implements Listener {
     @Override
     public void receiveConfigInfo(String configInfo) {
         log.info("received routes changes {}", configInfo);
-
-        List<RouteDefinition> definitionList = JSON.parseArray(configInfo, RouteDefinition.class);
-        gatewayService.updateRoutes(definitionList);
+        if(StringUtils.isNotEmpty(configInfo)){
+            List<RouteDefinition> definitionList = JSON.parseArray(configInfo, RouteDefinition.class);
+            gatewayService.updateRoutes(definitionList);
+        }
     }
 }
