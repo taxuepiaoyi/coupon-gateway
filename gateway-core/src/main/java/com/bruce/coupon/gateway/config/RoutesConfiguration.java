@@ -30,9 +30,9 @@ public class RoutesConfiguration {
         log.info("declare.......builder = {}", JSONObject.toJSONString(builder));
         return builder.routes()
                 .route(route -> route.path("/gateway/coupon-customer/**").filters(filter -> filter.stripPrefix(1)).uri("lb://coupon-customer"))
-                .route(route -> route.order(1).path("/gateway/template")
+                .route(route -> route.order(1).path("/gateway/template/**")
                         .filters(filter -> filter.stripPrefix(1).requestRateLimiter(limiter -> limiter.setRateLimiter(customerRateLimiter).setKeyResolver(hostAddrKeyResolver).setStatusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED)).removeRequestParameter("templateHels")
-                                .addRequestParameter("parameter","89934")).uri("lb://template"))
+                                .addRequestParameter("parameter","89934")).uri("lb://coupon-template"))
                 .route(route -> route.path("/gateway/coupon-calculation/**").filters(filter -> filter.stripPrefix(1)).uri("lb://coupon-calculation"))
                 .build();
     }
